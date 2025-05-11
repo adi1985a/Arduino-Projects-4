@@ -1,162 +1,166 @@
-# Sterowanie przekaźnikiem za pomocą przycisku i LCD I2C (z polskimi znakami)
+# Relay Control with Button and LCD I2C (with Polish Characters)
 
-## Opis projektu
+## Project Description
 
-W tym projekcie stworzymy system do sterowania przekaźnikiem za pomocą przycisku, a stan przekaźnika będzie wyświetlany na wyświetlaczu LCD 16x2 z interfejsem I2C. Dodatkowo, na LCD użyjemy polskich znaków, takich jak `Ź`, `ł` i `ą`, przy pomocy własnych znaków graficznych zdefiniowanych w kodzie.
+In this project, we will create a system for controlling a relay using a button. The state of the relay will be displayed on a 16x2 LCD with an I2C interface. Additionally, we will display Polish characters such as `Ź`, `ł`, and `ą` on the LCD by defining custom characters in the code.
 
-Projekt będzie przydatny w różnych aplikacjach, gdzie konieczne jest kontrolowanie urządzeń za pomocą przycisku, a także monitorowanie ich stanu na wyświetlaczu.
+This project is useful for applications where you need to control devices via a button and monitor their state on a display.
 
-## Wymagane elementy
+## Required Components
 
-- **Arduino** (np. Arduino Uno, Nano lub kompatybilne)
-- **Wyświetlacz LCD 16x2 z interfejsem I2C** (np. z adresem 0x27)
-- **Przycisk** (do sterowania stanem przekaźnika)
-- **Przekaźnik** (moduł przekaźnika, np. 5V)
-- **Rezystor podciągający** (jeśli nie używamy `INPUT_PULLUP` na pinie przycisku)
-- **Przewody połączeniowe**
-- **Biblioteka `LiquidCrystal_I2C`** (do zainstalowania w Arduino IDE)
+- **Arduino** (e.g., Arduino Uno, Nano, or compatible)
+- **16x2 LCD Display with I2C interface** (e.g., with address 0x27)
+- **Button** (to control the relay state)
+- **Relay** (5V relay module)
+- **Pull-up Resistor** (if not using `INPUT_PULLUP` on the button pin)
+- **Jumper wires**
+- **`LiquidCrystal_I2C` library** (to be installed in the Arduino IDE)
 
-## Schemat połączeń
+## Circuit Diagram
 
-| Komponent         | Pin Arduino |
+| Component         | Arduino Pin |
 |-------------------|-------------|
-| **Przycisk**      | D3 (z `INPUT_PULLUP`) |
-| **Przekaźnik**    | D2          |
+| **Button**        | D3 (with `INPUT_PULLUP`) |
+| **Relay**         | D2          |
 | **LCD SDA**       | A4 (Uno)    |
 | **LCD SCL**       | A5 (Uno)    |
-| **Zasilanie LCD** | 5V, GND     |
+| **LCD Power**     | 5V, GND     |
 
-### Opis połączeń:
+### Pin Connections:
 
-1. **Przycisk**:
-   - Przycisk podłączony do pinu D3.
-   - Używamy wbudowanego rezystora podciągającego (`INPUT_PULLUP`), więc nie potrzebujemy zewnętrznego rezystora.
-   - Gdy przycisk jest naciśnięty, stan pinu D3 będzie niski (`LOW`).
+1. **Button**:
+   - The button is connected to pin D3.
+   - We use the internal pull-up resistor (`INPUT_PULLUP`), so no external resistor is needed.
+   - When the button is pressed, the state of pin D3 will be `LOW`.
 
-2. **Przekaźnik**:
-   - Przekaźnik podłączony do pinu D2.
-   - Sterowanie stanem przekaźnika odbywa się poprzez zmianę stanu pinu D2 z LOW na HIGH i odwrotnie.
+2. **Relay**:
+   - The relay is connected to pin D2.
+   - The relay state is controlled by toggling the state of pin D2 between `LOW` and `HIGH`.
 
-3. **Wyświetlacz LCD**:
-   - Wyświetlacz LCD podłączony do pinów SDA (A4) i SCL (A5) na Arduino.
-   - Zasilanie LCD podłączone do 5V i GND.
+3. **LCD Display**:
+   - The LCD is connected to the SDA (A4) and SCL (A5) pins of the Arduino.
+   - The LCD is powered by 5V and GND.
 
-## Instalacja
+## Installation
 
-1. **Zainstalowanie bibliotek**:
-   Aby móc korzystać z wyświetlacza LCD, należy zainstalować bibliotekę `LiquidCrystal_I2C` w Arduino IDE:
+1. **Install Libraries**:
+   To use the LCD display, you need to install the `LiquidCrystal_I2C` library in Arduino IDE:
 
-   - Otwórz Arduino IDE.
-   - Przejdź do **Szkic > Dołącz bibliotekę > Zarządzaj bibliotekami**.
-   - Wyszukaj **LiquidCrystal_I2C** i zainstaluj ją.
+   - Open Arduino IDE.
+   - Go to **Sketch > Include Library > Manage Libraries**.
+   - Search for **LiquidCrystal_I2C** and install it.
 
-2. **Podłączenie komponentów**:
-   - Podłącz przycisk, przekaźnik i wyświetlacz LCD zgodnie z powyższym schematem.
+2. **Connect Components**:
+   - Connect the button, relay, and LCD display as described in the circuit diagram.
 
-3. **Wgranie kodu**:
-   - Otwórz Arduino IDE i wgraj kod do swojego Arduino.
+3. **Upload the Code**:
+   - Open Arduino IDE and upload the code to your Arduino.
 
-## Działanie systemu
+## System Operation
 
-### Wyświetlanie stanu przekaźnika
+### Displaying the Relay State
 
-Po uruchomieniu urządzenia na wyświetlaczu LCD pojawi się początkowy stan przekaźnika – wyłączony. Przycisk w Arduino będzie odpowiedzialny za przełączanie stanu przekaźnika.
+Once the system is powered on, the initial state of the relay will be displayed on the LCD as "Off." Pressing the button will toggle the relay state.
 
-Każde naciśnięcie przycisku zmieni stan przekaźnika:
-- Jeśli przekaźnik był wyłączony, zostanie włączony.
-- Jeśli przekaźnik był włączony, zostanie wyłączony.
+Each press of the button changes the state of the relay:
+- If the relay is off, it will turn on.
+- If the relay is on, it will turn off.
 
-Stan przekaźnika będzie wyświetlany na wyświetlaczu LCD. Zmiana stanu będzie również widoczna w monitorze szeregowym.
+The relay state will be displayed on the LCD, and the state change will also be visible in the serial monitor.
 
-### Polskie znaki
+### Polish Characters
 
-W celu wyświetlenia polskich znaków (`Ź`, `ł`, `ą`) na wyświetlaczu LCD, zdefiniowane zostały niestandardowe znaki. Dzięki temu możemy wyświetlać polskie litery bez problemów z kodowaniem.
+To display Polish characters (`Ź`, `ł`, `ą`) on the LCD, custom characters are defined in the code. This allows us to display Polish letters without issues with encoding.
 
-### Obsługa przycisku
+### Button Handling
 
-Przycisk umożliwia przełączanie stanów:
-- Jeśli przekaźnik jest wyłączony, po naciśnięciu przycisku włączy się.
-- Jeśli przekaźnik jest włączony, po naciśnięciu przycisku wyłączy się.
+The button toggles the relay state:
+- When the relay is off, pressing the button turns it on.
+- When the relay is on, pressing the button turns it off.
 
-System obsługuje debouncing (eliminowanie zakłóceń wynikających z drgań styków przycisku), co zapewnia stabilne działanie przycisku.
+Debouncing is implemented to eliminate noise from button presses, ensuring stable button operation.
 
-## Kod źródłowy
+## Source Code
 
-Poniżej znajduje się pełny kod źródłowy programu:
+Here is the full source code:
 
 ```cpp
-#include <LiquidCrystal_I2C.h> // Dołączenie biblioteki do obsługi wyświetlacza LCD z interfejsem I2C
+#include <LiquidCrystal_I2C.h> // Include the library for LCD display with I2C interface
 
-// Definicje polskich znaków
-byte customCharZ[8] = {B00010,B00100,B11111,B00010,B00100,B01000,B11111,B00000}; // Zdefiniowanie własnego znaku dla litery 'Ź'
-byte customCharL[8] = {B01100, B00100, B00110, B00100, B01100, B00100, B01110, B00000}; // Zdefiniowanie własnego znaku dla litery 'ł'
-byte customCharA[8] = {B00000,B0000,B01110,B00001,B01111,B10001,B01111,B00001}; // Zdefiniowanie własnego znaku dla litery 'ą'
+// Polish characters definitions
+byte customCharZ[8] = {B00010,B00100,B11111,B00010,B00100,B01000,B11111,B00000}; // Custom character for 'Ź'
+byte customCharL[8] = {B01100, B00100, B00110, B00100, B01100, B00100, B01110, B00000}; // Custom character for 'ł'
+byte customCharA[8] = {B00000,B0000,B01110,B00001,B01111,B10001,B01111,B00001}; // Custom character for 'ą'
 
-const int relayPin = 2; // Deklaracja pinu do sterowania przekaźnikiem
-const int buttonPin = 3; // Deklaracja pinu do odczytu stanu przycisku
-bool relayState = LOW;   // Początkowy stan przekaźnika (wyłączony)
-bool lastButtonState = HIGH;  // Początkowy stan przycisku (nie naciśnięty, przy użyciu pullup)
-bool buttonPressed = false;   // Flaga wskazująca, czy przycisk został naciśnięty
+const int relayPin = 2; // Pin for relay control
+const int buttonPin = 3; // Pin for button input
+bool relayState = LOW;   // Initial relay state (off)
+bool lastButtonState = HIGH;  // Initial button state (not pressed, using pull-up)
+bool buttonPressed = false;   // Flag indicating if the button was pressed
 
-LiquidCrystal_I2C lcd(0x27, 16, 2); // Inicjalizacja wyświetlacza LCD z adresem I2C 0x27 i rozmiarem 16x2
+LiquidCrystal_I2C lcd(0x27, 16, 2); // Initialize LCD with I2C address 0x27 and size 16x2
 
 void setup() {
-  pinMode(relayPin, OUTPUT); // Ustawienie pinu przekaźnika jako wyjście
-  pinMode(buttonPin, INPUT_PULLUP); // Ustawienie pinu przycisku jako wejście z wewnętrznym rezystorem podciągającym
-  lcd.init(); // Inicjalizacja LCD
-  lcd.backlight(); // Włączenie podświetlenia LCD
-  Serial.begin(9600); // Rozpoczęcie komunikacji szeregowej z prędkością 9600 bps
+  pinMode(relayPin, OUTPUT); // Set the relay pin as output
+  pinMode(buttonPin, INPUT_PULLUP); // Set the button pin as input with internal pull-up resistor
+  lcd.init(); // Initialize the LCD
+  lcd.backlight(); // Turn on the LCD backlight
+  Serial.begin(9600); // Start serial communication at 9600 baud
 
-  // Ustawienie początkowego stanu przekaźnika
+  // Set the initial state of the relay
   digitalWrite(relayPin, relayState);
 
-  // Utworzenie własnych znaków na LCD
-  lcd.createChar(0, customCharL); // Utworzenie znaku dla 'ł'
-  lcd.createChar(1, customCharA); // Utworzenie znaku dla 'ą'
-  lcd.createChar(2, customCharZ); // Utworzenie znaku dla 'Ź'
+  // Create custom characters for LCD
+  lcd.createChar(0, customCharL); // Create character for 'ł'
+  lcd.createChar(1, customCharA); // Create character for 'ą'
+  lcd.createChar(2, customCharZ); // Create character for 'Ź'
 
-  // Wyświetlenie początkowego stanu na LCD i konsoli
+  // Display the initial state on the LCD and in the serial monitor
   updateDisplayAndConsole();
 }
 
 void loop() {
-  bool buttonState = digitalRead(buttonPin); // Odczytanie stanu przycisku
+  bool buttonState = digitalRead(buttonPin); // Read the button state
 
-  // Sprawdzenie czy przycisk został naciśnięty
+  // Check if the button was pressed
   if (buttonState == LOW && lastButtonState == HIGH && !buttonPressed) {
-    relayState = !relayState; // Zmiana stanu przekaźnika
-    digitalWrite(relayPin, relayState); // Zastosowanie zmiany stanu przekaźnika
-    updateDisplayAndConsole(); // Aktualizacja wyświetlacza i konsoli
-    buttonPressed = true;  // Ustawienie flagi naciśnięcia przycisku
+    relayState = !relayState; // Toggle the relay state
+    digitalWrite(relayPin, relayState); // Apply the new relay state
+    updateDisplayAndConsole(); // Update the display and serial monitor
+    buttonPressed = true;  // Set the button pressed flag
   } else if (buttonState == HIGH) {
-    buttonPressed = false;  // Reset flagi naciśnięcia gdy przycisk zostanie zwolniony
+    buttonPressed = false;  // Reset the button pressed flag when the button is released
   }
 
-  lastButtonState = buttonState; // Aktualizacja ostatniego stanu przycisku
-  delay(100);  // Krótkie opóźnienie dla debouncing
+  lastButtonState = buttonState; // Update the last button state
+  delay(100);  // Short delay for debouncing
 }
 
 void updateDisplayAndConsole() {
-  lcd.clear(); // Wyczyszczenie wyświetlacza
-  lcd.setCursor(0, 0); // Ustawienie kursora na początku pierwszej linii
+  lcd.clear(); // Clear the display
+  lcd.setCursor(0, 0); // Set the cursor to the start of the first line
   if (relayState) {
-    lcd.print("Przeka"); // Wyświetlenie tekstu na LCD
-    lcd.write(byte(2)); // Wstawienie znaku 'Ź'
-    lcd.print("nik ");
+    lcd.print("Relay "); // Display text on the LCD
+    lcd.write(byte(2)); // Display 'Ź'
+    lcd.print(" ON");
   } else {
-    lcd.print("Przeka");
-    lcd.write(byte(2)); // Wstawienie znaku 'Ź'
-    lcd.print("nik ");
+    lcd.print("Relay ");
+    lcd.write(byte(2)); // Display 'Ź'
+    lcd.print(" OFF");
   }
 
-  lcd.setCursor(0, 1); // Ustawienie kursora na początku drugiej linii
+  lcd.setCursor(0, 1); // Set the cursor to the start of the second line
   if (relayState) {
-    lcd.print("Za");
-    lcd.write(byte(0)); // Wstawienie znaku 'ł'
-    lcd.write(byte(1)); // Wstawienie znaku 'ą'
-    lcd.print("czony");
-    Serial.println("Przekaźnik załączony");
+    lcd.print("Acti");
+    lcd.write(byte(0)); // Display 'ł'
+    lcd.write(byte(1)); // Display 'ą'
+    lcd.print("vated");
+    Serial.println("Relay Activated");
   } else {
-    lcd.print("Wy");
-    lcd.write(byte(0)); // Wstawienie znaku 'ł'
-    lcd.write(byte(1)); // Wstawienie zn
+    lcd.print("Deacti");
+    lcd.write(byte(0)); // Display 'ł'
+    lcd.write(byte(1)); // Display 'ą'
+    lcd.print("vated");
+    Serial.println("Relay Deactivated");
+  }
+}
