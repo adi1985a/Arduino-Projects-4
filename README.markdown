@@ -7,49 +7,49 @@
 
 ---
 
-## 📋 Opis projektu  
-Ten projekt umożliwia sterowanie przekaźnikiem za pomocą przycisku, a stan przekaźnika jest wyświetlany na wyświetlaczu LCD 16x2 z interfejsem I2C. Na wyświetlaczu pojawiają się także polskie znaki (Ź, ł, ą) dzięki definiowaniu własnych znaków w kodzie. Projekt ten znajduje zastosowanie wszędzie tam, gdzie konieczne jest ręczne sterowanie urządzeniem elektrycznym oraz podgląd jego stanu.
+## 📋 Project Description  
+This project allows controlling a relay with a button, while the relay state is displayed on a 16x2 LCD with an I2C interface. Polish characters (Ź, ł, ą) are shown using custom characters defined in the code. This project is useful for manual device control and monitoring the device state on the display.
 
 ---
 
-## ⚙️ Wymagane komponenty
-- Arduino (Uno, Nano lub kompatybilne)
-- Wyświetlacz LCD 16x2 z interfejsem I2C (np. 0x27)
-- Przycisk
-- Przekaźnik 5V
-- Rezystor podciągający (jeśli nie używamy `INPUT_PULLUP`)
-- Przewody połączeniowe
-- Biblioteka [`LiquidCrystal_I2C`](https://github.com/johnrickman/LiquidCrystal_I2C) (instalacja przez menedżer bibliotek w Arduino IDE)
+## ⚙️ Required Components
+- Arduino (Uno, Nano or compatible)
+- 16x2 LCD Display with I2C interface (e.g., 0x27)
+- Button
+- 5V Relay Module
+- Pull-up resistor (if not using `INPUT_PULLUP`)
+- Jumper wires
+- [`LiquidCrystal_I2C`](https://github.com/johnrickman/LiquidCrystal_I2C) library (install via Arduino Library Manager)
 
 ---
 
-## 🛠️ Schemat połączeń
+## 🛠️ Circuit Diagram
 
-| Komponent     | Pin Arduino        |
-|---------------|--------------------|
-| Przycisk      | D3 (`INPUT_PULLUP`)|
-| Przekaźnik    | D2                 |
-| LCD SDA       | A4 (dla Uno)       |
-| LCD SCL       | A5 (dla Uno)       |
-| LCD VCC / GND | 5V / GND           |
-
----
-
-## ⚡ Działanie systemu
-
-- **LCD** pokazuje stan przekaźnika: `Ź ON` lub `Ź OFF`
-- **Przycisk** przełącza stan przekaźnika
-- Zaimplementowano **debouncing**
-- Polskie znaki (Ź, ł, ą) wyświetlane są dzięki znakom niestandardowym
+| Component    | Arduino Pin        |
+|--------------|--------------------|
+| Button       | D3 (`INPUT_PULLUP`)|
+| Relay        | D2                 |
+| LCD SDA      | A4 (Uno)           |
+| LCD SCL      | A5 (Uno)           |
+| LCD Power    | 5V and GND         |
 
 ---
 
-## 💻 Kod źródłowy
+## ⚡ System Operation
+
+- The **LCD** shows relay state: `Ź ON` or `Ź OFF`
+- The **button** toggles the relay state
+- Debouncing implemented
+- Polish characters displayed using custom LCD characters
+
+---
+
+## 💻 Source Code
 
 ```cpp
 #include <LiquidCrystal_I2C.h>
 
-// Definicje znaków specjalnych (Ź, ł, ą)
+// Polish characters definitions (Ź, ł, ą)
 byte customCharZ[8] = {B00010,B00100,B11111,B00010,B00100,B01000,B11111,B00000}; // 'Ź'
 byte customCharL[8] = {B01100, B00100, B00110, B00100, B01100, B00100, B01110, 0}; // 'ł'
 byte customCharA[8] = {B00000,B00000,B01110,B00001,B01111,B10001,B01111,B00001}; // 'ą'
@@ -91,7 +91,7 @@ void loop() {
   }
 
   lastButtonState = buttonState;
-  delay(100); // debounce
+  delay(100); // debounce delay
 }
 
 void updateDisplayAndConsole() {
@@ -116,6 +116,7 @@ void updateDisplayAndConsole() {
     Serial.println("Relay Deactivated");
   }
 }
+
 
 ```
 
