@@ -125,7 +125,6 @@ void updateDisplayAndConsole() {
 ## 📸 Screenshots
 
 📷 *Coming soon!*  
-You can add `.png`, `.jpg`, or `.gif` screenshots in the `/screenshots/` folder and embed them here.
 
 ---
 
