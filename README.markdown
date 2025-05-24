@@ -1,16 +1,18 @@
-# Relay Control with Button and LCD I2C (with Polish Characters)
+# ⚡ Relay Control with Button and LCD I2C (with Polish Characters)
 
 ![Arduino](https://img.shields.io/badge/Platform-Arduino-blue.svg)
 ![Language](https://img.shields.io/badge/Language-C%2B%2B-brightgreen.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Status](https://img.shields.io/badge/Status-Completed-success.svg)
 
-## Opis projektu  
+---
+
+## 📋 Opis projektu  
 Ten projekt umożliwia sterowanie przekaźnikiem za pomocą przycisku, a stan przekaźnika jest wyświetlany na wyświetlaczu LCD 16x2 z interfejsem I2C. Na wyświetlaczu pojawiają się także polskie znaki (Ź, ł, ą) dzięki definiowaniu własnych znaków w kodzie. Projekt ten znajduje zastosowanie wszędzie tam, gdzie konieczne jest ręczne sterowanie urządzeniem elektrycznym oraz podgląd jego stanu.
 
 ---
 
-## Wymagane komponenty
+## ⚙️ Wymagane komponenty
 - Arduino (Uno, Nano lub kompatybilne)
 - Wyświetlacz LCD 16x2 z interfejsem I2C (np. 0x27)
 - Przycisk
@@ -21,7 +23,7 @@ Ten projekt umożliwia sterowanie przekaźnikiem za pomocą przycisku, a stan pr
 
 ---
 
-## Schemat połączeń
+## 🛠️ Schemat połączeń
 
 | Komponent     | Pin Arduino        |
 |---------------|--------------------|
@@ -33,7 +35,7 @@ Ten projekt umożliwia sterowanie przekaźnikiem za pomocą przycisku, a stan pr
 
 ---
 
-## Działanie systemu
+## ⚡ Działanie systemu
 
 - **LCD** pokazuje stan przekaźnika: `Ź ON` lub `Ź OFF`
 - **Przycisk** przełącza stan przekaźnika
@@ -42,7 +44,7 @@ Ten projekt umożliwia sterowanie przekaźnikiem za pomocą przycisku, a stan pr
 
 ---
 
-## Kod źródłowy
+## 💻 Kod źródłowy
 
 ```cpp
 #include <LiquidCrystal_I2C.h>
@@ -114,3 +116,26 @@ void updateDisplayAndConsole() {
     Serial.println("Relay Deactivated");
   }
 }
+
+```
+
+---
+
+## 📸 Screenshots
+
+📷 *Coming soon!*  
+You can add `.png`, `.jpg`, or `.gif` screenshots in the `/screenshots/` folder and embed them here.
+
+---
+
+## 📃 License
+
+This project is licensed under the **MIT License**.  
+Feel free to use, modify, and share it freely.
+
+---
+
+## 👨‍💻 Author
+
+**Adrian Lesniak**  
+> 💡 Focused on electronics, embedded programming, and user-centric visual feedback.
