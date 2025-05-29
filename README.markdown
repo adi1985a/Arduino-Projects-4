@@ -10,6 +10,8 @@
 ## 📋 Project Description  
 This project allows controlling a relay with a button, while the relay state is displayed on a 16x2 LCD with an I2C interface. Polish characters (Ź, ł, ą) are shown using custom characters defined in the code. This project is useful for manual device control and monitoring the device state on the display.
 
+![Demo GIF](screenshots/1.gif)
+
 ---
 
 ## ⚙️ Required Components
@@ -124,7 +126,16 @@ void updateDisplayAndConsole() {
 
 ## 📸 Screenshots
 
-📷 *Coming soon!*  
+To include a demonstration:
+
+<p align="center">
+  <img src="screenshots\1.jpg" width="300"/>
+  <img src="screenshots\2.jpg" width="300"/>
+  <img src="screenshots\3.jpg" width="300"/>
+  <img src="screenshots\4.jpg" width="300"/>
+  <img src="screenshots\5.jpg" width="300"/>
+  <img src="screenshots\6.jpg" width="300"/>
+</p>
 
 ---
 
